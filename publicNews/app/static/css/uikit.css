@@ -14,8 +14,7 @@ html {
   font-size: 16px;
   font-weight: normal;
   line-height: 1.5;
-  /* 2 */
-  -webkit-text-size-adjust: 100%;
+  /* 2 */  -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   /* 3 */
   background: #fff;
@@ -47,13 +46,13 @@ a:hover {
  */
 a,
 .uk-link {
-  color: #1e87f0;
+  color: #666;
   text-decoration: none;
   cursor: pointer;
 }
 a:hover,
 .uk-link:hover {
-  color: #0f6ecd;
+  color: #a80228;
   text-decoration: underline;
 }
 /* Text-level semantics
@@ -899,7 +898,8 @@ a.uk-link-reset:hover,
  */
 .uk-table-hover > tr:hover,
 .uk-table-hover tbody tr:hover {
-  background: #ffd;
+  background: #c00832;
+  color: white;
 }
 /* Size modifier
  ========================================================================== */
@@ -1863,8 +1863,8 @@ select.uk-form-width-xsmall {
  * Default
  */
 .uk-button-default {
-  background-color: transparent;
-  color: #333;
+  background-color: #a80228;
+  color: white;
   border: 1px solid #e5e5e5;
 }
 /* Hover + Focus */
@@ -3275,8 +3275,9 @@ select.uk-form-width-xsmall {
 /* Title
  ========================================================================== */
 .uk-comment-title {
-  font-size: 1.25rem;
+  font-size: 1.75rem;
   line-height: 1.4;
+  color: #c00832;
 }
 /* Meta
  ========================================================================== */

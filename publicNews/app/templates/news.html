@@ -2,12 +2,14 @@
 {% load staticfiles %}
 {% block content%}
 {% load widget_tweaks %}   
-<h2>ข่าวประชาสัมพันธ์</h2>
-{% if request.user.is_authenticated %}
-<a href="{% url 'upload' %}" >upload</a>
-{% endif %}
+<h2>ข่าวประชาสัมพันธ์
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'upload' %}" ><button class="uk-button uk-button-default">upload</button></a>
+    {% endif %}
+</h2>
+
 <div class="detaillcontent">
-    <table class="uk-table uk-table-hover uk-table-divider">
+    <table class="uk-table uk-table-striped">
         <thead>
             <tr>
                 <th><h4 class="uk-margin-remove-bottom" style="color:#fff">วันที่</h4></th>

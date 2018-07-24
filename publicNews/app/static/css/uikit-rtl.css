@@ -2769,7 +2769,7 @@ select.uk-form-width-xsmall {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 .uk-card-default .uk-card-title {
-  color: #333;
+  color: rgb(175, 23, 23);
 }
 .uk-card-default.uk-card-hover:hover {
   background-color: #fff;
