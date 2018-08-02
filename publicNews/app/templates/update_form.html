@@ -8,6 +8,8 @@
         <!-- <input type="button" value="upload file"> -->
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            {{ form.media }}
+
             <table border="0" >
                 {% for f in form %}
                 <tr>
