@@ -13,19 +13,20 @@ services:
     volumes:
       - ./publicNews:/code
       - /var/www/public/static/:/var/www/public/static/
-      - /var/www/public/media/:/var/www/public/media/
+      - ./publicNews/media/:/code/media/
 
     depends_on:
       - db_publicnews
 
   nginx_publicnews:
     container_name: nginx_publicnews
-      image: nginx:latest
-      ports:
-        - "80:80"
-      volumes:
-        - /var/www/public/static/:/var/www/public/static/
-        - /var/www/public/media/:/var/www/public/media/
-        - ./nginx/:/etc/nginx/conf.d/
-      depends_on:
-        - web_publicnews
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/:/etc/nginx/conf.d/
+      - /var/www/public/static/:/var/www/public/static/
+      - ./publicNews/media/:/code/media/
+      
+    depends_on:
+      - web_publicnews

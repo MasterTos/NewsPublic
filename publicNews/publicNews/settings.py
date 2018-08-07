@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^u2rn)kp8qccltv=0t1xvqgco050ln6x9eu!xbos8(x=y-d9nc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['webpublic','localhost']
 
@@ -80,13 +80,13 @@ WSGI_APPLICATION = 'publicNews.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'postgres',
-        # 'USER': 'postgres',
-        # 'HOST': 'db_publicnews',
-        # 'PORT': 5432,
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db_publicnews',
+        'PORT': 5432,
     }
 }
 
@@ -113,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'th'
 
 TIME_ZONE = 'UTC'
 
@@ -247,11 +247,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
-STATIC_ROOT = "/var/www/static/"
+STATIC_ROOT = "/var/www/public/static/"
 
 MEDIA_URL = '/media/'
+MEDIA_DIRS = [
+    os.path.join(BASE_DIR, "media")
+]
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-# MEDIA_ROOT = "/var/www/static/"
+# MEDIA_ROOT = "/var/www/public/media/"
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
