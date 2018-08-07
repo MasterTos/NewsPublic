@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 from django import forms
 from django.db import models
+from .widgets import CKEditorUploadingWidget
 
 from .widgets import CKEditorWidget
 
@@ -35,3 +36,22 @@ class RichTextFormField(forms.fields.CharField):
         kwargs.update({'widget': CKEditorWidget(config_name=config_name, extra_plugins=extra_plugins,
                                                 external_plugin_resources=external_plugin_resources)})
         super(RichTextFormField, self).__init__(*args, **kwargs)
+
+class RichTextUploadingField(RichTextField):
+    @staticmethod
+    def _get_form_class():
+        return RichTextUploadingFormField
+
+
+class RichTextUploadingFormField(forms.fields.CharField):
+    def __init__(self, config_name='default', extra_plugins=None, external_plugin_resources=None, *args, **kwargs):
+        kwargs.update({'widget': CKEditorUploadingWidget(config_name=config_name, extra_plugins=extra_plugins,
+                                                                 external_plugin_resources=external_plugin_resources)})
+        super(RichTextUploadingFormField, self).__init__(*args, **kwargs)
+
+
+try:
+    from south.modelsinspector import add_introspection_rules
+    add_introspection_rules([], ["^ckeditor_uploader\.fields\.RichTextUploadingField"])
+except ImportError:
+    pass

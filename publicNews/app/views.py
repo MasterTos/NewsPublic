@@ -3,11 +3,22 @@ from .models import NewsPublic
 from .forms import PublicForm
 from django.shortcuts import redirect
 from django.http import HttpResponse,HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 # Create your views here.
 def news_public(request):
     all_public = NewsPublic.objects.all().order_by('-date')
-    return render(request, 'news.html',{'all_public':all_public})
+    page = request.GET.get('page',1)
+    paginator = Paginator(all_public,5)
+    try:
+        news = paginator.page(page)
+    except PageNotAnInteger:
+        news = paginator.page(1)
+    except EmptyPage:
+        news = paginator.page(paginator.num_pages)
+    return render(request, 'news.html',{'news':news})
+
 
 def detail_public(request,id):
     news = NewsPublic.objects.get(pk=id)

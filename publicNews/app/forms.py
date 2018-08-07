@@ -15,7 +15,7 @@ class PublicForm(forms.ModelForm):
         labels  = {
             "title" : _("ชื่อเรื่อง"),
             "date" : _("วันที่"),
-            "content" : _("รายละเอียด"),
-            "file" : _("เอกสารแนบ"),
+            "description" : _("รายละเอียด"),
+            "content" : _("เนื้อหาข่าว"),
             "image" : _("รูปภาพ"),
         }

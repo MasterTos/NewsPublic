@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  db_publicnews:
+    container_name: postgres_publicnews
+    image: postgres
+    restart: always
+
+  web_publicnews:
+    container_name: web_publicnews
+    build: ./publicNews
+    command: sh /code/run.sh
+    volumes:
+      - ./publicNews:/code
+      - /var/www/public/static/:/var/www/public/static/
+      - /var/www/public/media/:/var/www/public/media/
+
+    depends_on:
+      - db_publicnews
+
+  nginx_publicnews:
+    container_name: nginx_publicnews
+      image: nginx:latest
+      ports:
+        - "80:80"
+      volumes:
+        - /var/www/public/static/:/var/www/public/static/
+        - /var/www/public/media/:/var/www/public/media/
+        - ./nginx/:/etc/nginx/conf.d/
+      depends_on:
+        - web_publicnews

@@ -25,7 +25,7 @@ SECRET_KEY = '^u2rn)kp8qccltv=0t1xvqgco050ln6x9eu!xbos8(x=y-d9nc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['webpublic','localhost']
 
 
 # Application definition
@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'app',
     'widget_tweaks',
     'ckeditor',
+    'ckeditor_uploader',
 ]
+CKEDITOR_UPLOAD_PATH = "uploads/" # < here
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,6 +82,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'postgres',
+        # 'USER': 'postgres',
+        # 'HOST': 'db_publicnews',
+        # 'PORT': 5432,
     }
 }
 
@@ -115,6 +122,47 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': 'Custom',
+#         'height': 500,
+#         'toolbar_Custom': [
+#             ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
+#             ['Link', 'Unlink', 'Anchor'],
+#             ['Image', 'Flash', 'Table', 'HorizontalRule'],
+#             ['TextColor', 'BGColor'],
+#             ['Smiley', 'SpecialChar'], ['Source'],
+#         ],
+#         # 'extraPlugins': ','.join(
+#         #     [
+#                  # you extra plugins here
+#                 # 'div',
+#                 # 'autolink',
+#                 # 'autoembed',
+#                 # 'embedsemantic',
+#                 # # 'autogrow',
+#                 # # 'devtools',
+#                 # 'widget',
+#                 # 'lineutils',
+#                 # 'clipboard',
+#                 # 'dialog',
+#                 # 'dialogui',
+#                 # 'elementspath',
+#                 # 'easyimage'
+#             # ]),
+
+#     },
+#     'special': {
+#         'toolbar': 'Special',
+#         'toolbar_Special': [
+#             ['Bold'],
+#         ],
+#         # 'extraPlugins': ','.join(['easyimage'])
+#     }
+   
+# }
+
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -199,6 +247,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
+STATIC_ROOT = "/var/www/static/"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+# MEDIA_ROOT = "/var/www/static/"
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

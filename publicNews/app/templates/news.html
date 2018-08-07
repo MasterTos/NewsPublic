@@ -1,34 +1,83 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content%}
-{% load widget_tweaks %}   
-<h2>ข่าวประชาสัมพันธ์</h2>
-{% if request.user.is_authenticated %}
-<a href="{% url 'upload' %}" >upload</a>
-{% endif %}
-<div class="detaillcontent">
-    <table class="uk-table uk-table-hover uk-table-divider">
-        <thead>
-            <tr>
-                <th><h4 class="uk-margin-remove-bottom" style="color:#fff">วันที่</h4></th>
-                <th><h4 class="uk-margin-remove-bottom" style="color:#fff">เรื่อง</h4></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for f in all_public %}
-            <tr>
-                <td>{{ f.date }}</td>
-                <td><a href="/news/{{f.id}}">{{ f.title }}</a></td>
-                {% if request.user.is_authenticated %}
-                <td><a href="/edit/{{f.id}}">edit</a></td>
-                <td><a href="/delete/{{f.id}}">delete</a></td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+{% load widget_tweaks %} 
+<div class="uk-position-relative uk-visible-toggle uk-light uk-margin-remove-top" uk-slideshow="ratio: 9:3; animation: push">
+  
+    <ul class="uk-slideshow-items">
+        <li>
+            <img src="{% static 'img/img2.jpg' %}" alt="" uk-cover>
+        </li>
+        <li>
+            <img src="{% static 'img/img3.jpg' %}" alt="" uk-cover>
+        </li>
+    </ul>
+    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
 </div>
+<div class="content">
+    <h2>ข่าวประชาสัมพันธ์</h2>
+    {% if request.user.is_authenticated %}
+    <div class="uk-margin">
+        <a class="uk-button uk-button-default" href="{% url 'upload' %}">upload</a>
+        <a class="uk-button uk-button-danger" href="{% url 'logout' %}">LOGOUT</a>
+    </div>
+    {% endif %}
+    
+    <div class="detaillcontent">
+        <table class="uk-table uk-table-divider uk-table-striped">
+            <!-- <thead>
+                <tr>
+                    <th></th>
+                    <th><h4 class="uk-margin-remove-bottom" style="color:#fff">วันที่</h4></th>
+                    <th><h4 class="uk-margin-remove-bottom" style="color:#fff">เรื่อง</h4></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead> -->
+            <tbody>
+                {% for f in news %}
+                <tr>
+                    <td class="uk-margin"><img src="/media/{{f.image}}" width="150px" /></td>
+                    <!-- <td>{{ f.date }}</td> -->
+                    <td>
+                        <h3><a href="/news/{{f.id}}" target="_blank">{{ f.title }}</a></h3>
+                        <p >{{ f.date }}</p>
+                        <p>{{ f.description }}</p>
+                    </td>
+                    <td>{% if request.user.is_authenticated %}<a href="/edit/{{f.id}}">edit</a>{% endif %}</td>
+                    <td>{% if request.user.is_authenticated %}<a href="/delete/{{f.id}}">delete</a>{% endif %}</td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if news.has_other_pages %}
+        <ul class="uk-pagination">
+          {% if news.has_previous %}
+            <li><a href="?page={{ news.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="uk-disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in news.paginator.page_range %}
+            {% if news.number == i %}
+              <li class="uk-active"><span>{{ i }} <span class="sr-only"></span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if news.has_next %}
+            <li><a href="?page={{ news.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="uk-disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    
+    
+    </div>
+
+</div>
+
 
 {% endblock %}
