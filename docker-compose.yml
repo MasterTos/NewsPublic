@@ -5,6 +5,8 @@ services:
     container_name: postgres_publicnews
     image: postgres:alpine
     restart: always
+    networks:
+      - internal
 
   web_publicnews:
     container_name: web_publicnews
@@ -14,7 +16,8 @@ services:
       - ./publicNews:/code
       - /var/www/public/static/:/var/www/public/static/
       - ./publicNews/media/:/code/media/
-
+    networks:
+      - internal
     depends_on:
       - db_publicnews
 
@@ -27,6 +30,13 @@ services:
       - ./nginx/:/etc/nginx/conf.d/
       - /var/www/public/static/:/var/www/public/static/
       - ./publicNews/media/:/code/media/
-      
+    networks:
+        - internal
+        - proxy
     depends_on:
       - web_publicnews
+networks:
+  proxy:
+    external: true
+  internal:
+    external: false
