@@ -3,7 +3,7 @@ version: '2'
 services:
   db_publicnews:
     container_name: postgres_publicnews
-    image: postgres
+    image: postgres:alpine
     restart: always
 
   web_publicnews:
@@ -20,7 +20,7 @@ services:
 
   nginx_publicnews:
     container_name: nginx_publicnews
-    image: nginx:latest
+    image: nginx:alpine
     ports:
       - "80:80"
     volumes:
