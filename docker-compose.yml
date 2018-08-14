@@ -10,7 +10,7 @@ services:
     labels:
       - traefik.enable=false
     volumes:
-      - /home/kubelab/data/newspublic_data:/var/lib/postgresql/data
+      - /home/kubelab/data/publicnews_data:/var/lib/postgresql/data
 
   web_publicnews:
     container_name: web_publicnews
