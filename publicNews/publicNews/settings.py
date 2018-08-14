@@ -25,7 +25,7 @@ SECRET_KEY = '^u2rn)kp8qccltv=0t1xvqgco050ln6x9eu!xbos8(x=y-d9nc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['webpublic','localhost']
+ALLOWED_HOSTS = ['webpublic','localhost', 'publicnews.service.sci.tu.ac.th']
 
 
 # Application definition
