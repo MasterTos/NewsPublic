@@ -7,6 +7,10 @@ services:
     restart: always
     networks:
       - internal
+    labels:
+      - traefik.enable=false
+    volumes:
+      - /home/kubelab/data/newspublic_data:/var/lib/postgresql/data
 
   web_publicnews:
     container_name: web_publicnews
@@ -18,23 +22,34 @@ services:
       - ./publicNews/media/:/code/media/
     networks:
       - internal
+      - proxy
+    labels:
+      - "traefik.frontend.rule=Host:publicnews.service.sci.tu.ac.th;PathPrefix:/"
+      - traefik.backend=web_publicnews
+      - traefik.port=80
+      - traefix.weight=5
+      - traefik.docker.network:proxy
     depends_on:
       - db_publicnews
 
   nginx_publicnews:
     container_name: nginx_publicnews
     image: nginx:alpine
-    ports:
-      - "80:80"
     volumes:
-      - ./nginx/:/etc/nginx/conf.d/
-      - /var/www/public/static/:/var/www/public/static/
-      - ./publicNews/media/:/code/media/
-    networks:
+        - ./publicNews:/usr/share/nginx/html/
+      labels:
+        - traefik.enable=true
+        - traefik.backend=nginx_publicnews
+        - "traefik.frontend.rule=Host:publicnews.service.sci.tu.ac.th;PathPrefix:/static/"
+        - traefik.docker.network:proxy
+        - traefik.port=80
+        - traefik.weight=5
+      networks:
         - internal
         - proxy
     depends_on:
       - web_publicnews
+
 networks:
   proxy:
     external: true
