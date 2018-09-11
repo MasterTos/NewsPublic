@@ -20,7 +20,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')), # < here
+    path('ckeditor/', include('ckeditor_uploader.urls')), 
     path('login/', auth_views.login, name='login'),
     path('logout/', auth_views.logout, name='logout'),
 
