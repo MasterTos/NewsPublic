@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'django_filters',
     'rest_framework',
+    'social_django',
+    'tuauth',
 ]
 CKEDITOR_UPLOAD_PATH = "uploads/" # < here
 
@@ -270,3 +272,25 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
+AUTHENTICATION_BACKENDS = (
+
+    'django.contrib.auth.backends.ModelBackend',
+    'tuauth.backend.TUOAuth2',
+
+)
+
+SOCIAL_AUTH_PIPELINE = [ 
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.social_auth.associate_by_email',
+]
+
+SOCIAL_AUTH_TU_KEY = 'si1RuCZkallVKNyGWMJvlBwxmDQe9agCZD3qRnVl'
+SOCIAL_AUTH_TU_SECRET = '6Ux7FyA10STHeDlNcq3yhhBMYf7sHSr6JOdq2A809gHs4mT9XMezZuCXnM8EjeSV1ADzvww3DQerXraTYvZx3QzeiDtUIOuK5zDHMrSZ9Mkou0WVhI6vd07QbVQeT4hZ'
+

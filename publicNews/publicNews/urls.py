@@ -23,6 +23,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')), 
     path('login/', auth_views.login, name='login'),
     path('logout/', auth_views.logout, name='logout'),
+    path('oauth/', include('social_django.urls', namespace='social')),
 
 ]
 
