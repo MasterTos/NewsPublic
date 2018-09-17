@@ -4,7 +4,7 @@ services:
   db_publicnews:
     container_name: postgres_publicnews
     image: postgres:alpine
-    restart: always
+    restart: unless-stopped
     networks:
       - internal
     labels:
@@ -16,18 +16,16 @@ services:
     container_name: web_publicnews
     build: ./publicNews
     command: sh /code/run.sh
+    restart: unless-stopped
     volumes:
       - ./publicNews:/code
-      - /var/www/public/static/:/var/www/public/static/
-      - ./publicNews/media/:/code/media/
     networks:
       - internal
       - proxy
     labels:
       - "traefik.frontend.rule=Host:publicnews.service.sci.tu.ac.th;PathPrefix:/"
       - traefik.backend=web_publicnews
-      - traefik.port=80
-      - traefix.weight=5
+      - traefik.port=8000
       - traefik.docker.network:proxy
     depends_on:
       - db_publicnews
@@ -35,15 +33,15 @@ services:
   nginx_publicnews:
     container_name: nginx_publicnews
     image: nginx:alpine
+    restart: unless-stopped
     volumes:
         - ./publicNews:/usr/share/nginx/html/
     labels:
       - traefik.enable=true
       - traefik.backend=nginx_publicnews
-      - "traefik.frontend.rule=Host:publicnews.service.sci.tu.ac.th;PathPrefix:/static/"
+      - "traefik.frontend.rule=Host:publicnews.service.sci.tu.ac.th;PathPrefix:/static/,/media/"
       - traefik.docker.network:proxy
       - traefik.port=80
-      - traefik.weight=5
     networks:
       - internal
       - proxy
