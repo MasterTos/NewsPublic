@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^u2rn)kp8qccltv=0t1xvqgco050ln6x9eu!xbos8(x=y-d9nc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['webpublic','localhost', 'publicnews.service.sci.tu.ac.th']
 
@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'ckeditor',
     'ckeditor_uploader',
+    'django_filters',
+    'rest_framework',
+    'social_django',
+    'tuauth',
 ]
 CKEDITOR_UPLOAD_PATH = "uploads/" # < here
 
@@ -80,8 +84,8 @@ WSGI_APPLICATION = 'publicNews.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
@@ -251,3 +255,35 @@ MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media'))
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
+AUTHENTICATION_BACKENDS = (
+
+    'django.contrib.auth.backends.ModelBackend',
+    'tuauth.backend.TUOAuth2',
+
+)
+
+SOCIAL_AUTH_PIPELINE = [ 
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.social_auth.associate_by_email',
+]
+
+SOCIAL_AUTH_TU_KEY = 'si1RuCZkallVKNyGWMJvlBwxmDQe9agCZD3qRnVl'
+SOCIAL_AUTH_TU_SECRET = '6Ux7FyA10STHeDlNcq3yhhBMYf7sHSr6JOdq2A809gHs4mT9XMezZuCXnM8EjeSV1ADzvww3DQerXraTYvZx3QzeiDtUIOuK5zDHMrSZ9Mkou0WVhI6vd07QbVQeT4hZ'
+
