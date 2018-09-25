@@ -49,7 +49,7 @@ DEFAULT_CONFIG = {
     ],
     'toolbar': 'Full',
     'height': 291,
-    'width': 835,
+    'width': 900,
     'filebrowserWindowWidth': 940,
     'filebrowserWindowHeight': 725,
 }

@@ -74,13 +74,15 @@
 
 
 .content {
-  min-height: calc(100vh - 130px - 403px);
-  margin: 30px;
+  /* min-height: calc(100vh - 130px - 403px); */
+  min-height: calc(100vh - 301px);
+  /* margin: 30px; */
 }
+
 
 .detaillcontent {
   width: 90%;
-  margin: 0 auto;
+  margin:0 auto;
 }
 
 .uk-table th {
@@ -238,6 +240,10 @@ table .uk-table-hover{
     padding-right: 32px;
     margin-right: 32px;
     border-right: solid 1px #c8c6c6;
+  }
+
+  .content {
+    min-height: calc(100vh - 351px);
   }
 
 }

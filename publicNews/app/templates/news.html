@@ -16,31 +16,28 @@
     <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
 </div>
 <div class="content">
-    <nav uk-navbar>
-        <div class="uk-navbar-left">
-            <h2>ข่าวประชาสัมพันธ์</h2>
-        </div>
-        <div class="uk-navbar-right">
-            <div class="uk-margin">
-                <div class="uk-search uk-search-default">
-                    <!-- <a class="uk-search-icon-flip" uk-search-icon onclick="search()"></a> -->
-                    <span class="uk-search-icon" uk-search-icon ></span>
-                    <input id="searchbox" class="uk-search-input"  type="text" placeholder="Search..." onkeyup="onKeyupHandler(event)">
-                    <!-- <button class="uk-button" onclick="search()">Search</button>  -->
-                </div>
-            </div>
-        </div>
-    </nav>
-    
-
-    {% if request.user.is_authenticated %}
-    <div class="uk-margin">
-        <a class="uk-button uk-button-default" href="{% url 'upload' %}">upload</a>
-        
-    </div>
-    {% endif %}
-    
     <div class="detaillcontent">
+            <nav uk-navbar>
+                    <div class="uk-navbar-left">
+                        <h3>ข่าวประชาสัมพันธ์</h3>
+                    </div>
+                    <div class="uk-navbar-right uk-margin-top">
+                        <div class="uk-margin">
+                            <div class="uk-search uk-search-default">
+                                <!-- <a class="uk-search-icon-flip" uk-search-icon onclick="search()"></a> -->
+                                <span class="uk-search-icon" uk-search-icon ></span>
+                                <input id="searchbox" class="uk-search-input"  type="text" placeholder="Search..." onkeyup="onKeyupHandler(event)">
+                                <!-- <button class="uk-button" onclick="search()">Search</button>  -->
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                {% if request.user.is_staff %}
+                <div class="uk-margin">
+                    <a class="uk-button uk-button-default" href="{% url 'upload' %}">สร้างข่าวใหม่</a>
+                    
+                </div>
+                {% endif %}
         <div>
             <div id="demo">
                 <table class="uk-table uk-table-divider uk-table-striped">
@@ -55,8 +52,9 @@
                                                 <h3 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" target="_blank" href="/news/{{f.id}}">{{f.title}}</a></h3>
                                                 <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                                                     <li>{{ f.date|date:"D d M Y" }}</li>
-                                                    {% if request.user.is_authenticated %}<li><a href="/edit/{{f.id}}">edit</a></li>{% endif %}
-                                                    {% if request.user.is_authenticated %}<li><a href="/delete/{{f.id}}">delete</a></li>{% endif %}
+                                                    {% if request.user.is_staff %}<li><a href="/edit/{{f.id}}">แก้ไขข่าว</a></li>{% endif %}
+                                                    <!-- {% if request.user.is_staff %}<li><a onclick="alertDel()">ลบข่าว</a></li>{% endif %} -->
+                                                    {% if request.user.is_staff %}<li><a href="/delete/{{f.id}}" onclick="return confirm('ต้งอการลบข่าวนี้?')">ลบข่าว</a></li>{% endif %}
                                                 </ul>
                                             </div>
                                         </header>
@@ -111,7 +109,6 @@
         function search()
         {   
             var myObj,txt = "";
-            
             console.log("Click");
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
@@ -124,11 +121,11 @@
                                     <article class='uk-width-2-3@m uk-comment'>
                                         <header class='uk-comment-header uk-grid-medium uk-flex-middle' uk-grid>
                                             <div class='uk-width-expand'>
-                                                <h3 class='uk-comment-title uk-margin-remove'><a class='uk-link-reset' target='_blank' href='/news/${obj.id}'></a>${obj.title}</h3>
+                                                <h3 class='uk-comment-title uk-margin-remove'><a class='uk-link-reset' target='_blank' href='/news/${obj.id}'>${obj.title}</a></h3>
                                                 <ul class='uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top'>
                                                     <li>${obj.date}</li>
-                                                    {% if request.user.is_authenticated %}<li><a href='/edit/${obj.id}'>edit</a></li>{% endif %}
-                                                    {% if request.user.is_authenticated %}<li><a href='/delete/${obj.id}'>delete</a></li>{% endif %}
+                                                    {% if request.user.is_authenticated %}<li><a href='/edit/${obj.id}'>แก้ไขข่าว</a></li>{% endif %}
+                                                    {% if request.user.is_authenticated %}<li><a href='/delete/${obj.id}' onclick="return confirm('ต้งอการลบข่าวนี้?')" >ลบข่าว</a></li>{% endif %}
                                                 </ul>
                                             </div>
                                         </header>
@@ -140,7 +137,6 @@
                                         <img src='${obj.image}' />
                                     </div>
                                 </div></td></tr>`
-                                        console.log(obj)
                         })
                     txt += "</table>"  
                 }
@@ -169,7 +165,4 @@
             }
         }
 </script>
-    
-
-
 {% endblock %}
