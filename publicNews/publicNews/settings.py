@@ -291,6 +291,6 @@ SOCIAL_AUTH_PIPELINE = [
     'social_core.pipeline.social_auth.associate_by_email',
 ]
 
-SOCIAL_AUTH_TU_KEY = 'si1RuCZkallVKNyGWMJvlBwxmDQe9agCZD3qRnVl'
-SOCIAL_AUTH_TU_SECRET = '6Ux7FyA10STHeDlNcq3yhhBMYf7sHSr6JOdq2A809gHs4mT9XMezZuCXnM8EjeSV1ADzvww3DQerXraTYvZx3QzeiDtUIOuK5zDHMrSZ9Mkou0WVhI6vd07QbVQeT4hZ'
+SOCIAL_AUTH_TU_KEY = os.environ.get('TUDI_KEY', '')
+SOCIAL_AUTH_TU_SECRET = os.environ.get('TUDI_SECRET', '')
 
