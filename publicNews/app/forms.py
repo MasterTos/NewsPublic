@@ -11,12 +11,13 @@ class PublicForm(forms.ModelForm):
     class Meta:
         model = Newspublic
         fields = '__all__'
+        exclude = ['date',]
         widgets = {
             'date': DateInput(),
         }
         labels  = {
             "title" : _("ชื่อเรื่อง"),
-            "date" : _("วันที่"),
+            # "date" : _("วันที่"),
             "description" : _("รายละเอียด"),
             "content" : _("เนื้อหาข่าว"),
             "image" : _("รูปภาพ"),

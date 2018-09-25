@@ -2,15 +2,16 @@
 {% load staticfiles %}
 {% block content%}
 {% load widget_tweaks %}     
-<div style="margin-left:20px; margin-top:20px;">
-    <div class="uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid  style="font-family: Kanit">
+<div >
+    <div class="uk-grid-collapse uk-child-width-1-1@s uk-margin uk-padding-small" uk-grid  style="font-family: Kanit">
         {% if request.user.is_authenticated %}
         <!-- <input type="button" value="upload file"> -->
+        <h4 class="uk-text-center uk-margin-small-bottom">สร้างข่าวใหม่</h4>
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.media }}
             
-            <table border="0" >
+            <table border="0" style="width: 100%">
                 {% for f in form %}
                 <tr>
                   <th >{{f.label_tag}}</th>
