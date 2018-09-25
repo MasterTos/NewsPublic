@@ -9,7 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def news_public(request):
     all_public = Newspublic.objects.all().order_by('-date')
     page = request.GET.get('page',1)
-    paginator = Paginator(all_public,5)
+    paginator = Paginator(all_public,20)
     try:
         news = paginator.page(page)
     except PageNotAnInteger:
@@ -59,3 +59,4 @@ def pub_update(request,id):
 def public_delete(request,id):
    u = Newspublic.objects.get(pk=id).delete()
    return HttpResponseRedirect("/")
+
