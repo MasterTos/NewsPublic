@@ -23,6 +23,7 @@ services:
     networks:
       - internal
       - proxy
+    env_file: production.env
     labels:
       - "traefik.frontend.rule=Host:publicnews.service.sci.tu.ac.th;PathPrefix:/"
       - traefik.backend=web_publicnews
