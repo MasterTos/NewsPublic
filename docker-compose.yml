@@ -3,7 +3,7 @@ version: '2'
 services:
   db_publicnews:
     container_name: postgres_publicnews
-    image: postgres:alpine
+    image: postgres:10-alpine
     restart: unless-stopped
     networks:
       - internal
